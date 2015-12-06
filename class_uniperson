@@ -44,3 +44,17 @@ class Person(object):
     def __str__(self):
         """Returns self's name"""
         return self.name
+
+"""
+me = Person("Max Hofer")
+him = Person("Barack Obama")
+her = Person("Anna Schneider")
+
+pList = [me, him, her]
+for p in pList:
+    print(p)
+
+pList.sort()
+for p in pList:
+    print(p)
+"""
