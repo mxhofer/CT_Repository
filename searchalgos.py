@@ -1,4 +1,4 @@
-def insertionSort (A, direction = "up"):
+def insertionSort (A, direction = "up"):  # first-try version
     print(A)
     for j in range(1,len(A)):
         key = A[j]
@@ -13,6 +13,31 @@ def insertionSort (A, direction = "up"):
                 A[i+1],A[i] = A[i],A[i+1]
                 print("--- ", A)
                 i = i-1
+    return A
+    
+def insertionSort (A):  # improved version
+    for j in range(1,len(A)):
+        key = A[j]
+        i = j-1
+        while i>=0 and A[i]>key:
+            A[i+1] = A[i]
+            i = i-1
+        A[i+1] = key
+    return A
+
+def insertionSort (A) :  # improved version with print() statements to understand better
+    print ("list to be sorted = ", A)
+    for j in range (1, len (A)) :
+        key = A[j]
+        print ("  key = {} (at index {})".format (key, j))
+        i = j - 1
+        while i >= 0 and A[i] > key :
+            A[i + 1] = A[i]
+            print ("    moving number {} at index {} one place to right giving: {}".format (A[i], i, A))
+            i = i - 1
+        A[i + 1] = key
+        print ("    finally changing number that was at index {} with the key value {} giving: {}".format (i + 1, key, A))
+    print ("sorted list = ", A)
     return A
 
 #bubble sort algorithm
