@@ -28,3 +28,16 @@ def bubbleSort(A):
         if not(swap):
             break
     return A
+
+def search(findItem,list):
+    for counter,item in enumerate(list): #enumarte creates format of [counter, item]
+        if item==findItem:
+            return counter
+    else:
+        return "n not in list"
+
+#easier method using Python's built in .index method
+def easysearch(nlist, n):
+    if n in nlist:
+        return nlist.index(n)
+    else: return "change n"
