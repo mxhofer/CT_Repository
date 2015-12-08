@@ -127,5 +127,3 @@ class SnakesAndLadders(Graph):
 
 game = SnakesAndLadders()
 print(game.playGame(interactive=True))
-
-"""problem: first guy plays, stops when at 100, then second one plays, but it doesn't show on the graph"""
