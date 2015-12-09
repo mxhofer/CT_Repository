@@ -43,34 +43,30 @@ class SnakesAndLadders(Graph):
         return v1
 
     def drawBoard(self):
+        # for this version I have eliminated all the G1 related code
+        # both players are displayed using just one board
+        # clears the display
+        plt.clf()
         G=nx.DiGraph()
-        G1=nx.DiGraph()
         for v in self.vertices:
             G.add_node(v.label)
-        for v1 in self.vertices:
-            G1.add_node(v1.label)
         for e in self.edges:
             G.add_edge(e.startVertex.label, e.endVertex.label)
-        for e1 in self.edges:
-            G1.add_edge(e1.startVertex.label, e1.endVertex.label)
-        colours = []
+        edgeColours = []
         for e in G.edges_iter():
-            colours.append('grey' if int(e[0])==int(e[1])-1 else ('red' if int(e[0]) > int(e[1]) else 'green'))
+            edgeColours.append('grey' if int(e[0])==int(e[1])-1 else ('red' if int(e[0]) > int(e[1]) else 'green'))
         nodeSizes = []
-        nodeSizes1 = []
+        nodeColours = []
         for n in G.nodes_iter():
-            nodeSizes.append(500 if int(n)==self.currentSquare else 0)
-        for p in G1.nodes_iter():
-            nodeSizes1.append(500 if int(p)==self.currentSquare1 else 0)
-
-        nx.draw(G, pos=self.xyPlotPositions, arrows = False, node_size=nodeSizes, node_color="red", with_labels=True,
-                font_size=20, edge_color = colours)
-        if nodeSizes == nodeSizes1:
-            nx.draw(G1, pos=self.xyPlotPositions, arrows = False, node_size=nodeSizes1, node_color="white", with_labels=True,
-                font_size=20, edge_color = colours)
-        else: nx.draw(G1, pos=self.xyPlotPositions, arrows = False, node_size=nodeSizes1, node_color="blue", with_labels=True,
-                font_size=20, edge_color = colours)
-        plt.show()
+            # added new code for currentSquare1 as well
+            nodeSizes.append(500 if int(n)==self.currentSquare or int(n)==self.currentSquare1 else 0)
+            # now set the node colours - easiest to set all nodes to red except currentSquare1
+            nodeColours.append("blue" if int(n)==self.currentSquare1 else "red")
+        nx.draw(G, pos=self.xyPlotPositions, arrows = False, node_size=nodeSizes, node_color=nodeColours, with_labels=True,
+                font_size=20, edge_color = edgeColours)
+        plt.draw()
+        plt.show(block=False)
+        time.sleep(0.5)
 
     def playGame(self, interactive=True):
         numberMoves = 0
@@ -87,7 +83,7 @@ class SnakesAndLadders(Graph):
                 numberMoves1 += 1
                 self.nextMove1(interactive)
         if numberMoves < numberMoves1: winner = 1  # change winner to player 1 if true
-        if interactive: print("Well done, player", winner, ",you won! Game over")
+        if interactive: print("Well done, player", winner,",you won! Game over")
         return numberMoves, numberMoves1
 
 
@@ -112,7 +108,7 @@ class SnakesAndLadders(Graph):
         dice1 = random.choice([1,2,3,4,5,6])
         self.currentSquare1 += dice1
         self.currentSquare1 = min(self.currentSquare1,100)
-        if interactive: print("Player 2 have moved to square ", self.currentSquare1)
+        if interactive: print("Player 2 moved to square ", self.currentSquare1)
         boardSquare1 = self.getVertex(str(self.currentSquare1))
         for e in self.edges:
             if e.startVertex is boardSquare1:
