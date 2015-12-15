@@ -41,12 +41,8 @@ def inputNumbers(n):
         i += 1
     return answer  # don't use print statements as part of your function
 
+# >>>inputNumbers(5)
 
-def integrate(x, start, insert, end):
-    answer = x**2
-    newlist = [start, insert, end]
-    newlist[1] = answer
-    return newlist
 
 def integrate(start, end, dx):
     x = start
@@ -57,14 +53,19 @@ def integrate(start, end, dx):
         x += dx
     return answer
 
-def squareRoot(x): #finds the square root manually and stops when error < 0.01
+# >>>integrate(1,5,1)
+
+
+def squareRoot(x):  # finds the square root manually and stops when error < 0.01
     guess = 0
     dx = 0.01
     while abs(guess**2 - x) > 0.001:
         guess += dx
-        if guess > x: #Just guess > x because it's the easiest thing to do
+        if guess > x:  # Just guess > x because it's the easiest thing to do
             return None
     return guess
+
+# >>>squareRoot(10)
 
 
 def squareRoot(x, error):  # bisection search is super efficient
@@ -79,3 +80,5 @@ def squareRoot(x, error):  # bisection search is super efficient
         guess = (low+high)/2
         counter += 1
     return guess, counter
+
+# >>>squareRoot(10,0.001)
