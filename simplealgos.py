@@ -13,3 +13,9 @@ def countvowels(s):
         #return 1 + countvowels(s[1:]) #colone with nothing following means up to the end of the string
     else:
         return (1 if s[0] in "aeiou" else 0) + countvowels(s[1:])
+
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n*factorial(n-1)
