@@ -3,6 +3,7 @@ __author__ = 'andrewwhiter'
 ############################################################################
 # THIS FILE PROVIDES CODE FOR THE GRAPH, VERTEX AND EDGE CLASSES
 # COVERED IN THE WEEK 4 SEMINAR
+# Requires you to have Matrix.py saved in your working directory
 # EXCEPT FOR Graph.adjacencyMatrix() or Graph.distanceMatrix()
 ############################################################################
 
