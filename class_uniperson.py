@@ -55,4 +55,36 @@ class Module(MyAppObject):
         if call1==True: lecturer.addModule(self, call1=False)
     def __repr__(self):  # returns the modules code and title
         return "Module {}: {}".format(self.code, self.title)
-        
+
+
+################################finished here in class####################################
+# From the book: a mapping from students to a list of grades        
+
+class Grades(object):
+    def __init__(self, students, grades):  # create empty grade book
+        self.students = []
+        self.grades = {}
+        self.isSorted = True
+
+    def addStudent(self, student):
+        # assumes that student is of type student. it adds student to the grade book.
+        if student in self.students:
+            raise ValueError("Duplicate student")
+        self.students.append(student)
+        self.grades[student.getIdNum()] = []  # need to define getIdNum earlier!!!!!!!!!!!!!
+        self.isSorted = False
+
+    def addGrade(self, student, grade):
+        #assumes that grade is a float. adds grade to the list of grades for a student.
+        try:
+            self.grades[student.getIdNum()].append(grade)
+        except:
+            raise ValueError("Student not in dictionary")
+
+    def getStudents(self):
+        #returns a list of the students in the grade book
+        if not self.isSorted:
+            self.students.sort()
+            self.isSorted = True
+        return self.students[:] #returns copy of list of students
+
