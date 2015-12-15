@@ -1,4 +1,6 @@
-import pylab
+import pylab  
+# pylab is part of a package called scipy
+# make sure that this is installed in your PyCharm project interpreter
 
 pylab.figure(1)
 pylab.plot([1,2,3,4], [2,4,6,8])
