@@ -1,14 +1,106 @@
-__author__ = 'andrewwhiter'
+__author__ = 'andrewwhiter'  # comments and restructuring = "max"
 
 ############################################################################
 # THIS FILE PROVIDES CODE FOR THE GRAPH, VERTEX AND EDGE CLASSES
 # COVERED IN THE WEEK 4 SEMINAR
-# Requires you to have Matrix.py saved in your working directory
 # EXCEPT FOR Graph.adjacencyMatrix() or Graph.distanceMatrix()
 ############################################################################
 
-from Matrix import *
+############################################################################
+# Some Matrix methods required
+# Alternatively use "from Matrix import *" if Matrix.py is saved in same directory
+############################################################################
 
+class Matrix(object):
+    def __init__(self,mstring="",n=2,m=2):
+        if mstring!="":
+            self.data = self.makeMatrix(mstring)
+            self.n = len(self.data)
+            self.m = len(self.data[0])
+        else:
+            self.data = [[0 for _ in range(m)] for _ in range(n)]
+            self.n = n
+            self.m = m
+
+    def set(self,i,j,value):
+        self.data[i-1][j-1] = value
+
+    def get(self,i,j):
+        return self.data[i-1][j-1]
+
+    def __str__(self):
+        str =""
+        for row in self.data:
+            for x in row:
+                str += "{:^5g}".format(x)
+            str += "\n"
+        return str
+
+    def makeMatrix(self, mstring):
+        """Converts and returns a list representation of a matrix from string of the form '1 2;3 4'"""
+        return [[float(n) for n in r.split(" ")] for r in mstring.split(";")]
+
+    def trace(self):
+        """Returns the trace of self ie the sum of the diagonal elements"""
+        assert self.n == self.m, "Trying to call trace on a non-square matrix"
+        return sum([self.data[i][i] for i in range(self.n)])
+
+    def transpose(self):
+        """Returns a new matrix that is the transpose of self."""
+        selfT = Matrix(n=self.m,m=self.n)
+        selfT.data = [list(col) for col in zip(*self.data)]
+        # alternatively you can use
+        # selfT.data = [[row[i] for row in self.data] for i in range(self.m))]
+        return selfT
+        
+    def getRow(self,i):
+        """ Returns i-th row vector of matrix M with i starting from 1 """
+        return self.data[i-1]
+
+    def getColumn(self,j):
+        """ Returns j-th column vector of matrix M with j starting from 1 """
+        return [row[j-1] for row in self.data]
+        # alternatively we could take the j-th row of the transpose
+        # return self.transpose().getRow(j)
+        
+    def dot(self,M):
+        """ Returns a matrix A that is the dot product of matrices self and M ie self.M = A """
+
+        def vDot(u,v):
+            """ Returns the dot product of 2 vectors.
+            Added inside this Matrix method to ensure its availability for this method."""
+            return sum([x*y for x,y in zip(u,v)])
+
+        assert self.m == M.n, "Matrix dimensions mismatched when trying to perform dot product"
+
+        A = Matrix(n=self.n, m=M.m)
+
+        for i in range(1,self.n +1):
+            row = self.getRow(i)
+
+            for j in range(1,M.m +1):
+                col = M.getColumn(j)
+                A.set(i,j,vDot(row,col))
+        return A
+        
+    def copy(self):
+        """ Returns a new Matrix object that is a deep copy of self """
+        A = Matrix(n=self.n,m=self.m)
+        for i in range(1,self.n +1):
+            for j in range(1,self.m +1):
+                A.set(i,j,self.get(i,j))
+        return A
+
+    def contains(self, number):
+        """ Returns True if one of the elements of self is equal to number """
+        for i in range(1,self.n +1):
+            for j in range(1,self.m +1):
+                if self.get(i,j)==number:
+                    return True
+        else:
+            return False
+
+############################### actual graph class starts here #########################################################################
 
 class Graph(object):
     def __init__(self):
@@ -63,9 +155,6 @@ class Graph(object):
     def __repr__(self):
         return "<graph: vertices={}, edges={}>".format(self.vertices.__repr__(),self.edges.__repr__())
 
-
-#################################################################
-
 class Edge(object):
     def __init__(self, startVertex, endVertex, weight=1):
         self.startVertex = startVertex
@@ -76,9 +165,6 @@ class Edge(object):
         return "{}-{}-{}".format(self.startVertex.label, ("" if self.weight==1 else self.weight), self.endVertex.label)
 
 
-#################################################################
-
-
 class Vertex(object):
     def __init__(self, label="", index=None):
         self.label = label
@@ -87,9 +173,7 @@ class Vertex(object):
     def __repr__(self):
         return "{}({})".format(self.label,self.index)
 
-
-#################################################################
-
+#################### data input and testing ############################################
 
 g = Graph()
 g.addEdge("A","B")
@@ -112,41 +196,3 @@ print("",g,"","adjacency matrix (A): ", A,sep="\n")
 print("number of length 2 paths (A^2):",A2,"number of length 3 paths (A^3):",A3,sep="\n" )
 print("distance matrix:")
 print(g.distanceMatrix())
-
-# <graph: vertices=[A(1), B(2), C(3), D(4), E(5), F(6), T(7)], edges=[A--B, A--C, A--D, B--E, B--F, C--E, C--F, D--E, D--F, E--T, F--T]>
-#
-# adjacency matrix (A):
-#   0    1    1    1    0    0    0
-#   1    0    0    0    1    1    0
-#   1    0    0    0    1    1    0
-#   1    0    0    0    1    1    0
-#   0    1    1    1    0    0    1
-#   0    1    1    1    0    0    1
-#   0    0    0    0    1    1    0
-#
-# number of length 2 paths (A^2):
-#   3    0    0    0    3    3    0
-#   0    3    3    3    0    0    2
-#   0    3    3    3    0    0    2
-#   0    3    3    3    0    0    2
-#   3    0    0    0    4    4    0
-#   3    0    0    0    4    4    0
-#   0    2    2    2    0    0    2
-#
-# number of length 3 paths (A^3):
-#   0    9    9    9    0    0    6
-#   9    0    0    0   11   11    0
-#   9    0    0    0   11   11    0
-#   9    0    0    0   11   11    0
-#   0   11   11   11    0    0    8
-#   0   11   11   11    0    0    8
-#   6    0    0    0    8    8    0
-#
-# distance matrix:
-#   2    1    1    1    2    2    3
-#   1    2    2    2    1    1    2
-#   1    2    2    2    1    1    2
-#   1    2    2    2    1    1    2
-#   2    1    1    1    2    2    1
-#   2    1    1    1    2    2    1
-#   3    2    2    2    1    1    2
