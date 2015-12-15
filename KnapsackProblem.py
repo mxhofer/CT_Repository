@@ -38,3 +38,20 @@ def solveKnapsackProblem(items,maxCapacity):
 
 # >>>testItems = [Item("item 1", 2, 4), Item("item 2", 3, 5), Item("item3", 7, 6)]
 # >>>solveKnapsackProblem(testItems, maxCapacity=9)
+
+################################################################
+def solveKnapsackGREEDY(items, maxCapacity):
+    ''' returns a near-best solution based on packing in order of value density '''
+    
+    remainingCapacity = maxCapacity
+    solutionList, solutionValue = [], 0
+
+    for item in sorted(items, key=lambda x: x.value/x.volume, reverse=True):
+        if item.volume <= remainingCapacity:
+            solutionList.append(item)
+            solutionValue += item.value
+            remainingCapacity -= item.volume
+    return solutionList, solutionValue
+
+# >>>testItems = [Item("item 1", 2, 4), Item("item 2", 3, 5), Item("item3", 7, 6)]
+# >>>solveKnapsackGREEDY(testItems, maxCapacity=9)
