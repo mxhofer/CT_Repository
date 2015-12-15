@@ -4,13 +4,13 @@ class Person(object):
         """Create a person"""
         self.name = name
         try:
-            lastBlank = name.rindex(" ") #this breaks the string into a first and last name
+            lastBlank = name.rindex(" ")  # this breaks the string into a first and last name
             self.lastName = name[lastBlank+1:]
             firstn = name.index(" ")
             self.firstName = name[0:firstn]
         except:
             self.lastName = name
-        self.birthday = None #creates .birthday function
+        self.birthday = None  # creates .birthday function
 
     def getName(self):
         """Returns self's full name"""
@@ -20,7 +20,7 @@ class Person(object):
         """Returns self's last name"""
         return self.lastName
 
-    def getFirstName(self): #added this myself!!
+    def getFirstName(self):  # added this myself!!
         """Returns self's first name"""
         return self.firstName
 
