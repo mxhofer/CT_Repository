@@ -1,6 +1,6 @@
 __author__ = 'maxhofer'
 
-from GraphBFSRecursive import *
+from GraphBFSRecursive import *  # requires GraphBFSRecursive to be in same working directory
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
