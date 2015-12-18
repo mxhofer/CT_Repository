@@ -26,18 +26,19 @@ def draw_graph(graph, showLabels = True):
     for edge in graph:
         G.add_edge(edge[0], edge[1])
 
-    # draw graph 1
+    # draw graph 1 in shell layout
     pos = nx.shell_layout(G)
     nx.draw(G, pos)
     plt.figure()
 
-    # draw graph 2
+    # draw graph 2 with a random layout
+    # might need to zoom in to see edges
     # labels are now on top of the nodes
     nx.draw_random(G)
     plt.figure()
     nx.draw_spring(G, node_size=100, with_labels=showLabels, font_size=16, edge_color="grey", width=0.5)
 
-    # draw graph 3 and save
+    # draw graph 3 the standard way and save
     plt.savefig("fig1.png")
     plt.show()
 
