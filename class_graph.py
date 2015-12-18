@@ -3,11 +3,10 @@ __author__ = 'andrewwhiter'  # comments and restructuring = "max"
 ############################################################################
 # THIS FILE PROVIDES CODE FOR THE GRAPH, VERTEX AND EDGE CLASSES
 # COVERED IN THE WEEK 4 SEMINAR
-# EXCEPT FOR Graph.adjacencyMatrix() or Graph.distanceMatrix()
 ############################################################################
 
 ############################################################################
-# Some Matrix methods required
+# Some Matrix methods required as with class Matrix()
 # Alternatively use "from Matrix import *" if Matrix.py is saved in same directory
 ############################################################################
 
