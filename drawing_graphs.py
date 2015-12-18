@@ -37,7 +37,7 @@ def draw_graph(graph, showLabels = True):
     plt.figure()
     nx.draw_spring(G, node_size=100, with_labels=showLabels, font_size=16, edge_color="grey", width=0.5)
 
-    # show and save graph
+    # draw graph 3 and save
     plt.savefig("fig1.png")
     plt.show()
 
