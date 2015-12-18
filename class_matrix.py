@@ -24,7 +24,7 @@ class Matrix(object):
         return str
 
     def makeMatrix(self, mstring):
-        """Converts and returns a list representation of a matrix from string of the form '1 2;3 4'"""
+        """Converts and returns a list representation of a matrix from string of the form '1 2;3 4' """
         return [[float(n) for n in r.split(" ")] for r in mstring.split(";")]
 
     def trace(self):
@@ -52,8 +52,6 @@ class Matrix(object):
 
     def dot(self,M):
         """ Returns a matrix A that is the dot product of matrices self and M ie self.M = A """
-        """ Doesn't work just yet"""
-
         def vDot(u,v):
             """ Returns the dot product of 2 vectors.
             Added inside this Matrix method to ensure its availability for this method."""
@@ -95,5 +93,12 @@ class Matrix(object):
 # >>>m.set(2,2,5)
 # >>>m.get(2,2)
 # >>>print(m)
-# >>>a.contains(5) will return True, because element is in matrix m
+
+# >>>A = Matrix("1 2;3 4")
+# >>> B = Matrix("1 2;1 2")
+# >>> C = A.dot(B)
+# >>> print(C)
+
+# >>>m.contains(5) will return True, because element is in matrix m
 # >>>a = m.copy()
+# >>>print(a)
