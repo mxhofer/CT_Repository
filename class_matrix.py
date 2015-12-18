@@ -39,7 +39,7 @@ class Matrix(object):
         # alternatively you can use
         # selfT.data = [[row[i] for row in self.data] for i in range(self.m))]
         return selfT
-        
+
     def getRow(self,i):
         """ Returns i-th row vector of matrix M with i starting from 1 """
         return self.data[i-1]
@@ -49,9 +49,10 @@ class Matrix(object):
         return [row[j-1] for row in self.data]
         # alternatively we could take the j-th row of the transpose
         # return self.transpose().getRow(j)
-        
+
     def dot(self,M):
         """ Returns a matrix A that is the dot product of matrices self and M ie self.M = A """
+        """ Doesn't work just yet"""
 
         def vDot(u,v):
             """ Returns the dot product of 2 vectors.
@@ -69,7 +70,7 @@ class Matrix(object):
                 col = M.getColumn(j)
                 A.set(i,j,vDot(row,col))
         return A
-        
+
     def copy(self):
         """ Returns a new Matrix object that is a deep copy of self """
         A = Matrix(n=self.n,m=self.m)
@@ -86,3 +87,13 @@ class Matrix(object):
                     return True
         else:
             return False
+
+# >>>m = Matrix()
+# >>>m.set(1,1,2)
+# >>>m.set(1,2,3)
+# >>>m.set(2,1,4)
+# >>>m.set(2,2,5)
+# >>>m.get(2,2)
+# >>>print(m)
+# >>>a.contains(5) will return True, because element is in matrix m
+# >>>a = m.copy()
